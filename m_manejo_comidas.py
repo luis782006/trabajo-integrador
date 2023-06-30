@@ -7,23 +7,10 @@ def Obtener_Lista_Comidas():
         #lee y obtengo la lista de comidas rapidas 
         with open("comidas_rapidas.json", "r", encoding="utf-8") as dataComidas:
             lista_comidas = json.load(dataComidas)
-        
-       
+
         return lista_comidas
     except Exception as e:
         print("Error al obtener lista de comidas" , str(e))
-    
-def Procesar_Opcion(opc):
-
-    lista_comidas=Obtener_Lista_Comidas()
-    if opc==1:
-        Mostrar_Lista_Comidas(lista_comidas)
-    elif opc==2:
-        Buscar_Comida(lista_comidas)
-        
-    return opc    
-        
-
 
 def Mostrar_Lista_Comidas(lista):
     presentacion.LimpiarConsola()
@@ -67,22 +54,29 @@ def Buscar_Comida(lista):
     elif opcion=="4":
         Buscar_Veganas(lista)
 
-def Buscar_por_Ingredientes(lista):
+def Buscar_por_Ingredientes(lista, ingrediente):
+    lista_comida_filtrada = []
+   
     for comida in lista:
-        if comida['id'] == id:
+        ingredientes = comida['ingredientes']
+        if ingrediente in ingredientes:
+            lista_comida_filtrada.append(comida)
+
+    if lista_comida_filtrada:
+        for comida in lista_comida_filtrada:
             print("ID:", comida['id'])
             print("Descripción:", comida['descripcion'])
             print("Ingredientes:")
-            print("Ingredientes:", "-".join(comida['ingredientes']))
-            print("")
+            print("-".join(comida['ingredientes']))
             print("Tiempo:", comida['tiempo'])
             print("Precio:", comida['precio'])
             print("Calorías:", comida['calorias'])
             print("Vegana:", comida['vegana'])
             print("--------------------")
-            break
     else:
-        print("No se encontró la comida con el ID:", id)
+        print("No se encontraron comidas que contengan ese ingrediente.")
+
+               
 
 def Buscar_por_precio(lista, precio_max,precio_min):
     lista_comida_filtrada=[]
@@ -108,7 +102,7 @@ def Buscar_por_precio(lista, precio_max,precio_min):
 def Buscar_por_calorias(lista,calorias_max,calorias_min):
     lista_comida_filtrada=[]
     for comida in lista:
-        if calorias_min <= comida['precio'] <= calorias_max:
+        if calorias_min <= comida['calorias'] <= calorias_max:
             lista_comida_filtrada.append(comida)
 
     if not lista_comida_filtrada:
@@ -244,7 +238,7 @@ def Guardar_Nueva_Comida(lista,id,descripcion,ingredientes,tiempo,precio,caloria
             json.dump(lista, dataComidas)
         print("Comida Insertada")
     except Exception as e:
-        print("Error al registrar usuario" , str(e))
+        print("Error al actualizar la lista de comida" , str(e))
     return True
     
 def Borrar(lista):
