@@ -2,11 +2,7 @@ import presentacion
 import m_manejo_usuario
 import m_manejo_menu
 import m_manejo_comidas
-
-presentacion.LimpiarConsola()
-presentacion.Presentacion()
-if (presentacion.ContinuarPresentacion()):
-    presentacion.LimpiarConsola()
+es_Admin=False
 
 def login():
     #Obtengo Usuario y Contraseña ingresadas por el usuario
@@ -37,21 +33,24 @@ def login():
             exit()
     return usuario_contraseña[0],usuario_contraseña[1]
 
-
 # datos_login[1] es el usuario
 # datos_login[2] es la contraseña
-datos_login=login()
-#inicializo variable para saber si tipo usuario= admin
+presentacion.LimpiarConsola()
+presentacion.Presentacion()
 es_Admin=False
-#consulto si finalmente se logeo el usuario
-if len(datos_login)!=0:
-   #verifico si el usuario logeado es usuario o admin
-   es_Admin=m_manejo_usuario.TipoUsuario(datos_login[0],datos_login[1])
-
-opcion_menu=0
-if es_Admin:
-    opcion_menu=m_manejo_menu.menu_admin()
-    m_manejo_comidas.Procesar_Opcion(opcion_menu)
-else:   
-    print("menu usuario")
+if (presentacion.ContinuarPresentacion()):
+    presentacion.LimpiarConsola()
+    datos_login=login()
+    #inicializo variable para saber si tipo usuario= admin
+    #consulto si finalmente se logeo el usuario
+    if len(datos_login)!=0:
+    #verifico si el usuario logeado es usuario o admin
+     es_Admin=m_manejo_usuario.TipoUsuario(datos_login[0],datos_login[1])
+   
+    if es_Admin:
+        m_manejo_comidas.menu_admin()
+        
+    else:
+        print("Gracias por usar la app")
+        exit()
 
