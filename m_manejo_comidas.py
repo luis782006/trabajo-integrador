@@ -55,26 +55,25 @@ def Buscar_Comida(lista):
 
     if opcion == "1":
         ingrediente = input("Ingrese el ingrediente a buscar: ")
-        Buscar_por_Ingredientes(lista, ingrediente)
-        
+        Buscar_por_Ingredientes(lista, ingrediente)        
     elif opcion == "2":
         precio_max = float(input("Ingrese un rango de precio (Max): "))
         precio_min= float(input("Ingrese un rango de precio (Min): "))
         Buscar_por_precio(lista, precio_max,precio_min)
-        
-    '''
     elif opcion == "3":
         calorias_max = int(input("Ingrese las calorías máximas: "))
+        calorias_min = int(input("Ingrese las calorías min: "))
+        Buscar_por_calorias(lista,calorias_max,calorias_min)
+    elif opcion=="4":
+        Buscar_Veganas(lista)
 
-    '''
 def Buscar_por_Ingredientes(lista):
     for comida in lista:
         if comida['id'] == id:
             print("ID:", comida['id'])
             print("Descripción:", comida['descripcion'])
             print("Ingredientes:")
-            for ingrediente in comida['ingredientes']:
-                print("",ingrediente, end="-")
+            print("Ingredientes:", "-".join(comida['ingredientes']))
             print("")
             print("Tiempo:", comida['tiempo'])
             print("Precio:", comida['precio'])
@@ -98,8 +97,7 @@ def Buscar_por_precio(lista, precio_max,precio_min):
             print("ID:", comida_filtrada['id'])
             print("Descripción:", comida_filtrada['descripcion'])
             print("Ingredientes:")
-            for ingrediente in comida_filtrada['ingredientes']:
-                print("", ingrediente, end="-")
+            print("Ingredientes:", "-".join(comida['ingredientes']))
             print("")
             print("Tiempo:", comida_filtrada['tiempo'])
             print("Precio:", comida_filtrada['precio'])
@@ -107,7 +105,47 @@ def Buscar_por_precio(lista, precio_max,precio_min):
             print("Vegana:", comida_filtrada['vegana'])
             print("--------------------")
        
-   
+def Buscar_por_calorias(lista,calorias_max,calorias_min):
+    lista_comida_filtrada=[]
+    for comida in lista:
+        if calorias_min <= comida['precio'] <= calorias_max:
+            lista_comida_filtrada.append(comida)
+
+    if not lista_comida_filtrada:
+        print("No se encontraron comidas dentro de ese rango de calorias.")
+    else:
+        for comida_filtrada in lista_comida_filtrada:
+            print("ID:", comida_filtrada['id'])
+            print("Descripción:", comida_filtrada['descripcion'])
+            print("Ingredientes:")
+            print("Ingredientes:", "-".join(comida['ingredientes']))
+            print("")
+            print("Tiempo:", comida_filtrada['tiempo'])
+            print("Precio:", comida_filtrada['precio'])
+            print("Calorías:", comida_filtrada['calorias'])
+            print("Vegana:", comida_filtrada['vegana'])
+            print("--------------------")
+def Buscar_Veganas(lista):
+    lista_comida_filtrada=[]
+    for comida in lista:
+        if comida['vegana'] == "true":
+            lista_comida_filtrada.append(comida)
+
+    if not lista_comida_filtrada:
+        print("No hay comidas veganas.")
+    else:
+        for comida_filtrada in lista_comida_filtrada:
+            print("ID:", comida_filtrada['id'])
+            print("Descripción:", comida_filtrada['descripcion'])
+            print("Ingredientes:")
+            print("Ingredientes:", "-".join(comida['ingredientes']))
+            print("")
+            print("Tiempo:", comida_filtrada['tiempo'])
+            print("Precio:", comida_filtrada['precio'])
+            print("Calorías:", comida_filtrada['calorias'])
+            print("Vegana:", comida_filtrada['vegana'])
+            print("--------------------")
+
 def Modificar_Comida(lista):
     #Muestro toda las comidas
     Mostrar_Lista_Comidas(lista)
@@ -119,8 +157,7 @@ def Modificar_Comida(lista):
             print("ID:", comida['id'])
             print("Descripción:", comida['descripcion'])
             print("Ingredientes:")
-            for ingrediente in comida['ingredientes']:
-                print("",ingrediente, end="-")
+            print("Ingredientes:", "-".join(comida['ingredientes']))
             print("")
             print("Tiempo:", comida['tiempo'])
             print("Precio:", comida['precio'])
@@ -210,6 +247,23 @@ def Guardar_Nueva_Comida(lista,id,descripcion,ingredientes,tiempo,precio,caloria
         print("Error al registrar usuario" , str(e))
     return True
     
+def Borrar(lista):
+    id=int(input("Ingrese por ID la comida para eliminar: "))
+    for comida in lista:
+        if comida['id']==id:
+            lista.remove(comida)
+            break
+        else:
+            print("No existe comida con el Id ingresado")
+    try:    
+        # Actualizo el archivo comidas_rapidas.json guardando los cambios de la comida seleccionada
+        with open("comidas_rapidas.json", "w", encoding="utf-8") as dataComidas:
+            json.dump(lista, dataComidas)
+        print("Se elimino la comida con exito")
+    except Exception as e:
+        print("Error al borar la comida seleccinada" , str(e))
+    return True
+
 def menu_admin():
     presentacion.LimpiarConsola()
     opcion = -1  # Inicializamos la opción con un valor diferente de cero
