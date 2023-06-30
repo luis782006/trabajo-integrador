@@ -49,7 +49,6 @@ if (presentacion.ContinuarPresentacion()):
    
     if es_Admin:
         m_manejo_comidas.menu_admin()
-        
     else:
         print("Gracias por usar la app")
         exit()

@@ -26,6 +26,7 @@ def Procesar_Opcion(opc):
 
 
 def Mostrar_Lista_Comidas(lista):
+    presentacion.LimpiarConsola()
     for comida in lista:
         print("ID:", comida['id'])
         print("Descripción:", comida['descripcion'])
@@ -37,8 +38,36 @@ def Mostrar_Lista_Comidas(lista):
         print("Vegana:", comida['vegana'])
         print("--------------------")
 
+def Mostrar_Comidas_Abreviadas(lista):
+    for comida in lista:
+        print("*------------------------*")
+        print("ID:", comida['id'], "- Descripción:", comida['descripcion'])
+        #print("Descripción:", comida['descripcion']) 
+       
+
 def Buscar_Comida(lista):
-    id = int(input("Ingrese el ID de la comida a buscar: "))
+    print("Opciones de búsqueda:")
+    print("1. Buscar por ingrediente.")
+    print("2. Buscar por precio.")
+    print("3. Buscar por calorías.")
+    print("4. Mostrar comidas veganas disponibles.")
+    opcion = input("Ingrese el número de la opción deseada: ")
+
+    if opcion == "1":
+        ingrediente = input("Ingrese el ingrediente a buscar: ")
+        Buscar_por_Ingredientes(lista, ingrediente)
+        
+    elif opcion == "2":
+        precio_max = float(input("Ingrese un rango de precio (Max): "))
+        precio_min= float(input("Ingrese un rango de precio (Min): "))
+        Buscar_por_precio(lista, precio_max,precio_min)
+        
+    '''
+    elif opcion == "3":
+        calorias_max = int(input("Ingrese las calorías máximas: "))
+
+    '''
+def Buscar_por_Ingredientes(lista):
     for comida in lista:
         if comida['id'] == id:
             print("ID:", comida['id'])
@@ -56,6 +85,29 @@ def Buscar_Comida(lista):
     else:
         print("No se encontró la comida con el ID:", id)
 
+def Buscar_por_precio(lista, precio_max,precio_min):
+    lista_comida_filtrada=[]
+    for comida in lista:
+        if precio_min <= comida['precio'] <= precio_max:
+            lista_comida_filtrada.append(comida)
+
+    if not lista_comida_filtrada:
+        print("No se encontraron comidas en ese rango de precios.")
+    else:
+        for comida_filtrada in lista_comida_filtrada:
+            print("ID:", comida_filtrada['id'])
+            print("Descripción:", comida_filtrada['descripcion'])
+            print("Ingredientes:")
+            for ingrediente in comida_filtrada['ingredientes']:
+                print("", ingrediente, end="-")
+            print("")
+            print("Tiempo:", comida_filtrada['tiempo'])
+            print("Precio:", comida_filtrada['precio'])
+            print("Calorías:", comida_filtrada['calorias'])
+            print("Vegana:", comida_filtrada['vegana'])
+            print("--------------------")
+       
+   
 def Modificar_Comida(lista):
     #Muestro toda las comidas
     Mostrar_Lista_Comidas(lista)
@@ -167,7 +219,7 @@ def menu_admin():
         print("**************")
         print("1. Mostrar comidas rápidas")
         print("2. Buscar comida rápida")
-        print("3. Modificar usuario")
+        print("3. Modificar comida")
         print("4. Agregar comidas rápidas")
         print("5. Borrar comidas rápidas")
         print("0. Salir")
@@ -176,7 +228,9 @@ def menu_admin():
             lista=Obtener_Lista_Comidas()
             Mostrar_Lista_Comidas(lista)
         elif opcion == 2:
-            lista=Obtener_Lista_Comidas()
+            presentacion.LimpiarConsola()
+            lista=Obtener_Lista_Comidas()            
+            Mostrar_Lista_Comidas(lista)
             Buscar_Comida(lista)
         elif opcion == 3:
             lista=Obtener_Lista_Comidas()
@@ -186,7 +240,7 @@ def menu_admin():
             Agregar_Comida(lista)
         elif opcion == 5:
             lista=Obtener_Lista_Comidas()
-            Filtrar_Comida(lista)
+            Borrar(lista)
     print("Gracias por usar la app")
 
    
