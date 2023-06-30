@@ -1,7 +1,7 @@
 import presentacion
 import m_manejo_usuario
-import m_manejo_menu
 import m_manejo_comidas
+import m_manejo_carrito
 es_Admin=False
 
 def login():
@@ -50,6 +50,8 @@ if (presentacion.ContinuarPresentacion()):
     if es_Admin:
         m_manejo_comidas.menu_admin()
     else:
+        m_manejo_carrito.vaciar_carrito()
+        m_manejo_carrito.menu_usuario()
         print("Gracias por usar la app")
         exit()
 

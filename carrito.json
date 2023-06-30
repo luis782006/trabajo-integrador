@@ -1,0 +1,19 @@
+[
+    {
+        "id": 1,
+        "descripcion": "Tortilla de papas",
+        "ingredientes": [
+            "papa",
+            "cebolla",
+            "huevo",
+            "ajo",
+            "sal",
+            "aceite",
+            "pimienta"
+        ],
+        "tiempo": 20,
+        "precio": 1350,
+        "calorias": 180,
+        "vegana": false
+    }
+]
