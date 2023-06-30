@@ -117,7 +117,6 @@ def ingresar_ingredientes():
 
 def Agregar_Comida(lista):
     ingredientes = []
-
     # Pedir todos los datos de comida
     print("Se solicitarán todos los datos de la comida")
     descripcion = input("Ingrese la descripción: ")
@@ -134,7 +133,11 @@ def Agregar_Comida(lista):
 
     # Obtengo el último id de la lista y le sumo 1 para asignarle el nuevo id
     id = lista[-1]['id'] + 1
+    if Guardar_Nueva_Comida(lista,id,descripcion,ingredientes,tiempo,precio,calorias,vegana):
+        menu_admin()
+    
 
+def Guardar_Nueva_Comida(lista,id,descripcion,ingredientes,tiempo,precio,calorias,vegana):
     # Crear el nuevo objeto comida
     nueva_comida = {
         "id": id,
@@ -145,17 +148,16 @@ def Agregar_Comida(lista):
         "calorias": calorias,
         "vegana": vegana
     }
-
-    # Actualizo el archivo comidas_rapidas.json guardando los cambios de la comida seleccionada
-    with open("comidas_rapidas.json", "w", encoding="utf-8") as dataComidas:
-        json.dump(lista, dataComidas)
-    print("Comida Insertada")
-    if not presentacion.ContinuarPresentacion():
-        exit()
-    else:
-        presentacion.LimpiarConsola()
-
-
+    lista.append(nueva_comida)   
+    try:    
+        # Actualizo el archivo comidas_rapidas.json guardando los cambios de la comida seleccionada
+        with open("comidas_rapidas.json", "w", encoding="utf-8") as dataComidas:
+            json.dump(lista, dataComidas)
+        print("Comida Insertada")
+    except Exception as e:
+        print("Error al registrar usuario" , str(e))
+    return True
+    
 def menu_admin():
     presentacion.LimpiarConsola()
     opcion = -1  # Inicializamos la opción con un valor diferente de cero
@@ -182,6 +184,9 @@ def menu_admin():
         elif opcion == 4:
             lista=Obtener_Lista_Comidas()
             Agregar_Comida(lista)
+        elif opcion == 5:
+            lista=Obtener_Lista_Comidas()
+            Filtrar_Comida(lista)
     print("Gracias por usar la app")
 
    
