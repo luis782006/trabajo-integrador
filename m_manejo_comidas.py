@@ -17,7 +17,6 @@ def Mostrar_Lista_Comidas(lista):
     for comida in lista:
         print("ID:", comida['id'])
         print("Descripción:", comida['descripcion'])
-        print("Ingredientes:")
         print("Ingredientes:", "-".join(comida['ingredientes']))
         print("Tiempo:", comida['tiempo'])
         print("Precio:", comida['precio'])
@@ -69,7 +68,6 @@ def Buscar_por_Ingredientes(lista, ingrediente):
         for comida in lista_comida_filtrada:
             print("ID:", comida['id'])
             print("Descripción:", comida['descripcion'])
-            print("Ingredientes:")
             print("-".join(comida['ingredientes']))
             print("Tiempo:", comida['tiempo'])
             print("Precio:", comida['precio'])
@@ -92,7 +90,6 @@ def Buscar_por_precio(lista, precio_max,precio_min):
         for comida_filtrada in lista_comida_filtrada:
             print("ID:", comida_filtrada['id'])
             print("Descripción:", comida_filtrada['descripcion'])
-            print("Ingredientes:")
             print("Ingredientes:", "-".join(comida['ingredientes']))
             print("")
             print("Tiempo:", comida_filtrada['tiempo'])
@@ -114,7 +111,6 @@ def Buscar_por_calorias(lista,calorias_max,calorias_min):
         for comida_filtrada in lista_comida_filtrada:
             print("ID:", comida_filtrada['id'])
             print("Descripción:", comida_filtrada['descripcion'])
-            print("Ingredientes:")
             print("Ingredientes:", "-".join(comida['ingredientes']))
             print("")
             print("Tiempo:", comida_filtrada['tiempo'])
@@ -135,7 +131,6 @@ def Buscar_Veganas(lista):
         for comida_filtrada in lista_comida_filtrada:
             print("ID:", comida_filtrada['id'])
             print("Descripción:", comida_filtrada['descripcion'])
-            print("Ingredientes:")
             print("Ingredientes:", "-".join(comida['ingredientes']))
             print("")
             print("Tiempo:", comida_filtrada['tiempo'])
@@ -154,7 +149,6 @@ def Modificar_Comida(lista):
         if comida['id'] == id:
             print("ID:", comida['id'])
             print("Descripción:", comida['descripcion'])
-            print("Ingredientes:")
             print("Ingredientes:", "-".join(comida['ingredientes']))
             print("")
             print("Tiempo:", comida['tiempo'])
