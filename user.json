@@ -14,5 +14,33 @@
     {
         "user": "sheila",
         "password": "sheila"
+    },
+
+
+
+    {
+        "user": "admin",
+        "password": "admin"
+    },
+    {
+        "user": "Usuario1",
+        "password": "123"
+    },
+    {
+        "user": "Luis",
+        "password": "123"
+    },
+    {
+        "user": "Noelia",
+        "password": "123"
+    },
+    {
+        "user": "Felipe",
+        "password": "123"
+    },
+    {
+        "user": "Carlos",
+        "password": "123"
     }
 ]
+>>>>>>> cb48e61e8df01c7bc81a45386a1a704485f8edcc

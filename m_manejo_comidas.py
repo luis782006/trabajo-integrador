@@ -1,5 +1,4 @@
 import json
-import m_manejo_menu
 import presentacion
 
 def Obtener_Lista_Comidas():
@@ -25,12 +24,12 @@ def Mostrar_Lista_Comidas(lista):
         print("--------------------")
 
 def Mostrar_Comidas_Abreviadas(lista):
-    print("Breve descripción de las comidas disponibles")
+    print("BREVES DESCRIPCION DE LAS COMIDAS DISPONIBLES A ELIGIR:")
 
     for comida in lista:
         print("*------------------------*")
         print("ID:", comida['id'], "- Descripción:", comida['descripcion'].upper(), "- Precio:", comida['precio'])
-        print("*------------------------*")
+        
         #print("Descripción:", comida['descripcion']) 
        
 
@@ -287,6 +286,8 @@ def menu_admin():
         elif opcion == 5:
             lista=Obtener_Lista_Comidas()
             Borrar(lista)
+        
+    
     print("Gracias por usar la app")
 
    

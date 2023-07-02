@@ -1,6 +1,6 @@
 import json
 import presentacion
-import m_manejo_usuario
+
 
 def PedirDatosLogin():
     print("               **************")
@@ -24,42 +24,47 @@ def Usuario_Existe(nombre_usuario):
     return usuarioValido
 
 def CrearUsuario(usuario,contraseña):
-    nuevoUsuario = {
-        "user": usuario,
-        "password": contraseña
-    }
-    try:
-        #lee y obtengo la lista de usuarios
-        with open("user.json", "r", encoding="utf-8") as dataUser:
-            lista_usuarios = json.load(dataUser)
-        
-       
-        #addiciono el nuevo usuario a la lista de usuarios
-        lista_usuarios.append(nuevoUsuario)
-        #actualizo el archivo user.json
-        with open("user.json", "w", encoding="utf-8") as dataUser:
-            json.dump(lista_usuarios, dataUser)
-        print("**************")
-        print("Usuario registrado con éxito")
-        print("**************")
-        if (presentacion.ContinuarPresentacion()!=True):
-            exit()
-        else:
-            presentacion.LimpiarConsola()
-       
-    except Exception as e:
-        print("Error al registrar usuario" , str(e))
-        
-
+    usuarioValido = Usuario_Existe(usuario)
+    if usuarioValido:
+        print("INTENTE USAR OTRO USUARIO, ESTE NO ESTA DISPONIBLE")
+        return False
+    else:
+            nuevoUsuario = {
+                            "user": usuario,
+                            "password": contraseña
+                            }
+            try:
+                #lee y obtengo la lista de usuarios
+                with open("user.json", "r", encoding="utf-8") as dataUser:
+                    lista_usuarios = json.load(dataUser)
+                
+            
+                #addiciono el nuevo usuario a la lista de usuarios
+                lista_usuarios.append(nuevoUsuario)
+                #actualizo el archivo user.json
+                with open("user.json", "w", encoding="utf-8") as dataUser:
+                    json.dump(lista_usuarios, dataUser)
+                print("**************")
+                print("USUARIO CREADO CON EXITO")
+                print("**************")
+                if (presentacion.ContinuarPresentacion()!=True):
+                    exit()
+                else:
+                    presentacion.LimpiarConsola()
+                    return True
+            except Exception as e:
+                print("Error al registrar usuario" , str(e))
 
 #Verifica si el usuario y contraseña ingresados son correctos
-def  ControlUsuario(usuario,contraseña):
+def ControlUsuario(usuario, contraseña):
+    usuarioValido = False
     with open('user.json') as lista_usuario:
         lst_usuarios = json.load(lista_usuario)
-    for usuario in lst_usuarios:
-        if usuario["user"] == usuario and usuario["password"] == contraseña:
-            return True
-    return False
+    for usr in lst_usuarios:
+        if usr["user"] == usuario and usr["password"] == contraseña:
+            usuarioValido = True
+            break
+    return usuarioValido
 
 def Bienvenida(usuario):
     
