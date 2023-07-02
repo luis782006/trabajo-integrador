@@ -62,7 +62,7 @@ def  ControlUsuario(usuario,contraseña):
     return False
 
 def Bienvenida(usuario):
-    presentacion.LimpiarConsola()   
+    
     print("**************")
     print("BIENVENIDO ", usuario.upper())
     print("**************")

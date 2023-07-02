@@ -13,8 +13,8 @@ def Presentacion():
 
 def ContinuarPresentacion():
     
-    opcion = input("              Desea continuar? (s/n): ")
-    if opcion == "s":
+    opcion = input("              Desea continuar? (s/n): ").upper()
+    if opcion == "S":
         return True
     else:
         return False    

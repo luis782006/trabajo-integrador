@@ -19,8 +19,8 @@ def login():
     else:
         print("El usuario no existe")
         print("Desea crear un usuario? (s/n)")
-        opcion=input()
-        if opcion=="s":
+        opcion=input().upper()
+        if opcion=="S":
             presentacion.LimpiarConsola()
             #Se piden los datos de usuario y contraseña nuevamente
             usuario_contraseña=m_manejo_usuario.PedirDatosLogin()
@@ -31,6 +31,7 @@ def login():
         else:
             print("Gracias por usar la app")
             exit()
+
     return usuario_contraseña[0],usuario_contraseña[1]
 
 # datos_login[1] es el usuario
@@ -50,8 +51,10 @@ if (presentacion.ContinuarPresentacion()):
     if es_Admin:
         m_manejo_comidas.menu_admin()
     else:
-        m_manejo_carrito.vaciar_carrito()
-        m_manejo_carrito.menu_usuario()
-        print("Gracias por usar la app")
+        if (m_manejo_usuario.ControlUsuario(datos_login[0],datos_login[1])):
+            m_manejo_carrito.vaciar_carrito()
+            m_manejo_carrito.menu_usuario(datos_login[0])
+        
+       # print("Gracias por usar la app")
         exit()
 

@@ -26,9 +26,12 @@ def Mostrar_Lista_Comidas(lista):
         print("--------------------")
 
 def Mostrar_Comidas_Abreviadas(lista):
+    print("Breve descripción de las comidas disponibles")
+
     for comida in lista:
         print("*------------------------*")
-        print("ID:", comida['id'], "- Descripción:", comida['descripcion'])
+        print("ID:", comida['id'], "- Descripción:", comida['descripcion'].upper(), "- Precio:", comida['precio'])
+        print("*------------------------*")
         #print("Descripción:", comida['descripcion']) 
        
 
@@ -61,7 +64,7 @@ def Buscar_por_Ingredientes(lista, ingrediente):
         ingredientes = comida['ingredientes']
         if ingrediente in ingredientes:
             lista_comida_filtrada.append(comida)
-
+    print("*------LISTA DE COMIDAS ENCONTRADAS-------*")
     if lista_comida_filtrada:
         for comida in lista_comida_filtrada:
             print("ID:", comida['id'])
@@ -76,8 +79,6 @@ def Buscar_por_Ingredientes(lista, ingrediente):
     else:
         print("No se encontraron comidas que contengan ese ingrediente.")
 
-               
-
 def Buscar_por_precio(lista, precio_max,precio_min):
     lista_comida_filtrada=[]
     for comida in lista:
@@ -87,6 +88,7 @@ def Buscar_por_precio(lista, precio_max,precio_min):
     if not lista_comida_filtrada:
         print("No se encontraron comidas en ese rango de precios.")
     else:
+        print(f"*------LISTA DE COMIDAS POR RANGO DE PRECIOS {precio_min} Y {precio_max} -------*")
         for comida_filtrada in lista_comida_filtrada:
             print("ID:", comida_filtrada['id'])
             print("Descripción:", comida_filtrada['descripcion'])
@@ -108,6 +110,7 @@ def Buscar_por_calorias(lista,calorias_max,calorias_min):
     if not lista_comida_filtrada:
         print("No se encontraron comidas dentro de ese rango de calorias.")
     else:
+        print(f"*------LISTA DE COMIDAS POR CALORIAS ENTRE {calorias_min} y {calorias_max}-------*")
         for comida_filtrada in lista_comida_filtrada:
             print("ID:", comida_filtrada['id'])
             print("Descripción:", comida_filtrada['descripcion'])
@@ -128,6 +131,7 @@ def Buscar_Veganas(lista):
     if not lista_comida_filtrada:
         print("No hay comidas veganas.")
     else:
+        print("*------LISTA DE COMIDAS VEGANAS-------*")
         for comida_filtrada in lista_comida_filtrada:
             print("ID:", comida_filtrada['id'])
             print("Descripción:", comida_filtrada['descripcion'])
