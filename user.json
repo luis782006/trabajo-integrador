@@ -15,9 +15,6 @@
         "user": "sheila",
         "password": "sheila"
     },
-
-
-
     {
         "user": "admin",
         "password": "admin"
@@ -43,4 +40,3 @@
         "password": "123"
     }
 ]
->>>>>>> cb48e61e8df01c7bc81a45386a1a704485f8edcc
