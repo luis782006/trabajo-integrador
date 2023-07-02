@@ -67,7 +67,7 @@ def Buscar_por_Ingredientes(lista, ingrediente):
         for comida in lista_comida_filtrada:
             print("ID:", comida['id'])
             print("Descripción:", comida['descripcion'])
-            print("Ingredientes:".join(comida['ingredientes']))
+            print("Ingredientes:", comida['ingredientes'])
             print("Tiempo:", comida['tiempo'])
             print("Precio:", comida['precio'])
             print("Calorías:", comida['calorias'])
