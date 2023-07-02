@@ -19,5 +19,12 @@ def ContinuarPresentacion():
     else:
         return False    
 
+def Imprimir_carrito():
+    archivo=open("impresora.txt","r",encoding="utf-8")
+    contenido=archivo.read()
+    print(contenido)
+    archivo.close()
+    
+
 def LimpiarConsola():
     os.system('cls')
