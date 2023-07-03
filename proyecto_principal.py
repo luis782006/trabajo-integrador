@@ -7,33 +7,37 @@ es_Admin=False
 
 def login():
     #Obtengo Usuario y Contraseña ingresadas por el usuario
-    usuario_contraseña=m_manejo_usuario.PedirDatosLogin()
+    usuario_contraseña=m_manejo_usuario.pedir_datos_login()
 
-    #verifico si usuario existe el en archivo user.json
-    existe=m_manejo_usuario.Usuario_Existe(usuario_contraseña[0])
+    #verifico si usuario existe en el archivo user.json
+    existe=m_manejo_usuario.usuario_existe(usuario_contraseña[0])
 
     #Verifico si el usuario y contraseña ingresados son correctos
     if existe:
-        if m_manejo_usuario.ControlUsuario(usuario_contraseña[0],usuario_contraseña[1]):
-             #Bienvenida al usuario       
-             m_manejo_usuario.Bienvenida(usuario_contraseña[0])
-             return usuario_contraseña[0],usuario_contraseña[1]
+        while existe and not m_manejo_usuario.control_usuario(usuario_contraseña[0],usuario_contraseña[1]):
+            print("Contraseña incorrecta, intente de nuevo")
+            usuario_contraseña=m_manejo_usuario.pedir_datos_login()
+            #Bienvenida al usuario       
+        m_manejo_usuario.bienvenida(usuario_contraseña[0])
+        return usuario_contraseña[0],usuario_contraseña[1]
+        
+
     else:
-        print("NO ESTA RESGISTRADO EN LA APP")
-        opcion=input("PRESIONE R PARA REGISTRASE O CUALQUIER TECLA PARA SALIR").upper()
+        print("NO ESTA REGISTRADO EN LA APP")
+        opcion=input("PRESIONE R PARA REGISTRARSE O CUALQUIER TECLA PARA SALIR").upper()
 
         if opcion=="R":
-            presentacion.LimpiarConsola()
+            presentacion.limpiar_consola()
             #Se piden los datos de usuario y contraseña nuevamente
             usuario_creado=False
             while not usuario_creado:
-                print("Ingrese nuevamente su Usuario y contraseña deseado")
-                usuario_contraseña=m_manejo_usuario.PedirDatosLogin()
+                print("Ingrese nuevamente su usuario y contraseña deseado")
+                usuario_contraseña=m_manejo_usuario.pedir_datos_login()
                 #envio el usuario y contraseña para crear el usuario
-                usuario_creado=m_manejo_usuario.CrearUsuario(usuario_contraseña[0],usuario_contraseña[1])
+                usuario_creado=m_manejo_usuario.crear_usuario(usuario_contraseña[0],usuario_contraseña[1])
             
             #Se piden los datos de usuario y contraseña nuevamente
-            usuario_contraseña=m_manejo_usuario.PedirDatosLogin()
+            usuario_contraseña=m_manejo_usuario.pedir_datos_login()
             return usuario_contraseña[0],usuario_contraseña[1]
         else:
             print("GRACIAS POR USAR NUESTRA APP")
@@ -46,20 +50,20 @@ def login():
 
 #Inicio de la app
 
-def InicioApp():
-    presentacion.LimpiarConsola()
+def inicio_app():
+    presentacion.limpiar_consola()
     presentacion.Presentacion()
-    es_Admin = False
+    es_admin = False
    
 
-    if presentacion.ContinuarPresentacion():
-        presentacion.LimpiarConsola()
+    if presentacion.continuar_presentacion():
+        presentacion.limpiar_consola()
         datos_login = login()
 
         if len(datos_login) != 0:
-            es_Admin = m_manejo_usuario.TipoUsuario(datos_login[0], datos_login[1])
+            es_admin = m_manejo_usuario.tipo_usuario(datos_login[0], datos_login[1])
 
-        if es_Admin:
+        if es_admin:
             m_manejo_comidas.menu_admin()
         else:
             m_manejo_carrito.vaciar_carrito()
@@ -67,4 +71,4 @@ def InicioApp():
 
     exit()
 
-InicioApp()
+inicio_app()

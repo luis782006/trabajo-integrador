@@ -2,16 +2,16 @@ import json
 import presentacion
 
 
-def PedirDatosLogin():
+def pedir_datos_login():
     print("               **************")
     print("                   LOGIN")
     print("               **************")
     usuario = input("Ingrese su usuario: ")
-    contraseña = input("Ingrese su contraseña: ")
-    return usuario,contraseña
+    password = input("Ingrese su contraseña: ")
+    return usuario, password
 
 #Verifico si el usuario existe en arcihvo user.json
-def Usuario_Existe(nombre_usuario):
+def usuario_existe(nombre_usuario):
     usuarioValido = False
     with open('user.json','r') as dataUser:
         usuarios = json.load(dataUser)
@@ -23,8 +23,8 @@ def Usuario_Existe(nombre_usuario):
 
     return usuarioValido
 
-def CrearUsuario(usuario,contraseña):
-    usuarioValido = Usuario_Existe(usuario)
+def crear_usuario(usuario,contraseña):
+    usuarioValido = usuario_existe(usuario)
     if usuarioValido:
         print("INTENTE USAR OTRO USUARIO, ESTE NO ESTA DISPONIBLE")
         return False
@@ -47,16 +47,16 @@ def CrearUsuario(usuario,contraseña):
                 print("**************")
                 print("USUARIO CREADO CON EXITO")
                 print("**************")
-                if (presentacion.ContinuarPresentacion()!=True):
+                if (presentacion.continuar_presentacion()!=True):
                     exit()
                 else:
-                    presentacion.LimpiarConsola()
+                    presentacion.limpiar_consola()
                     return True
             except Exception as e:
                 print("Error al registrar usuario" , str(e))
 
 #Verifica si el usuario y contraseña ingresados son correctos
-def ControlUsuario(usuario, contraseña):
+def control_usuario(usuario, contraseña):
     usuarioValido = False
     with open('user.json') as lista_usuario:
         lst_usuarios = json.load(lista_usuario)
@@ -66,13 +66,13 @@ def ControlUsuario(usuario, contraseña):
             break
     return usuarioValido
 
-def Bienvenida(usuario):
+def bienvenida(usuario):
     
     print("**************")
     print("BIENVENIDO ", usuario.upper())
     print("**************")
 
-def TipoUsuario(usuario,contraseña):
+def tipo_usuario(usuario,contraseña):
     if usuario == "admin" and contraseña == "admin":
         return True
     else:

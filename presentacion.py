@@ -11,7 +11,7 @@ def Presentacion():
     print("                           **************")
     print("                  *******APP LISTOS-YA V 1.0*********")
 
-def ContinuarPresentacion():
+def continuar_presentacion():
     
     opcion = input("              Desea continuar? (s/n): ").upper()
     if opcion == "S":
@@ -26,5 +26,5 @@ def Imprimir_carrito():
     archivo.close()
     
 
-def LimpiarConsola():
+def limpiar_consola():
     os.system('cls')

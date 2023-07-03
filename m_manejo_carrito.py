@@ -42,7 +42,7 @@ def Elegir_comida(lista):
     try:      
         with open("carrito.json",'w',encoding="utf-8") as dataCarrito:
             json.dump(lst_carrito, dataCarrito)
-            presentacion.LimpiarConsola()
+            presentacion.limpiar_consola()
             print("COMIDA AGREGADA AL CARRITO")
     except Exception as e:
         print("Error no se realizo la accion" , str(e))
@@ -93,7 +93,7 @@ def vaciar_carrito():
         return False
 
 def menu_usuario(usuario):
-    presentacion.LimpiarConsola()
+    presentacion.limpiar_consola()
  
     print(f"****BIENVENIDO {usuario} **********")
     opcion = -1  # Inicializamos diferente de cero
@@ -112,23 +112,23 @@ def menu_usuario(usuario):
         opcion = int(input("Ingrese una opción: "))
         if opcion == 1:
             lista=m_manejo_comidas.Obtener_Lista_Comidas()
-            m_manejo_comidas.Mostrar_Lista_Comidas(lista)
+            m_manejo_comidas.mostrar_lista_comidas(lista)
         elif opcion == 2:
-            presentacion.LimpiarConsola()
+            presentacion.limpiar_consola()
             lista=m_manejo_comidas.Obtener_Lista_Comidas()
 
             m_manejo_comidas.Mostrar_Comidas_Abreviadas(lista)
             Elegir_comida(lista)
         elif opcion == 3:
-            presentacion.LimpiarConsola()
+            presentacion.limpiar_consola()
             lista=Obtener_Lista_Carrito()
             Consultar_carrito(lista)
         elif opcion == 4:
-            presentacion.LimpiarConsola() 
+            presentacion.limpiar_consola() 
             presentacion.Imprimir_carrito()
         elif opcion == 5:
             lista=Obtener_Lista_Carrito()
-            presentacion.LimpiarConsola()
+            presentacion.limpiar_consola()
             vaciar_carrito()
        
                 

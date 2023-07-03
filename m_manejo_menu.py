@@ -1,7 +1,7 @@
 import presentacion
 
 def menu_admin():
-    presentacion.LimpiarConsola()
+    presentacion.limpiar_consola()
     print("**************")
     print("MENU ADMIN")
     print("**************")
