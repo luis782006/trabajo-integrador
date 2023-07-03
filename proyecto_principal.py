@@ -70,7 +70,7 @@ def login():
             print("I - Ingresar nuevamente")
             print("S - Salir")
 
-            opcion = input("Presione 'R' para registrarse o cualquier tecla para salir: ").upper()
+            opcion = input("Presione 'R' para registrarse o 'S' para salir: ").upper()
             if opcion == "R":
                 presentacion.limpiar_consola()
                 # Se piden los datos de usuario y contraseña nuevamente
