@@ -176,6 +176,9 @@ def menu_usuario(usuario):
                         if respuesta=="S":
                             presentacion.Imprimir_carrito(direccion)
                             vaciar_carrito()
+                        else:
+                            print("NO SE IMPRIMIO EL TICKET")
+                            continue
                             
             else:
                 print("CARRITO VACIO")
