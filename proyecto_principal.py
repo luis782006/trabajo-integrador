@@ -8,6 +8,9 @@ es_Admin=False
 import m_manejo_usuario
 import presentacion
 
+import m_manejo_usuario
+import presentacion
+
 def login():
     while True:
         # Obtengo Usuario y Contraseña ingresadas por el usuario
@@ -33,8 +36,11 @@ def login():
                 while not usuario_creado:
                     print("Ingrese nuevamente su usuario y contraseña deseado")
                     usuario_contraseña = m_manejo_usuario.pedir_datos_login()
-                    # Envío el usuario y contraseña para crear el usuario
-                    usuario_creado = m_manejo_usuario.crear_usuario(usuario_contraseña[0], usuario_contraseña[1])
+                    if m_manejo_usuario.usuario_existe(usuario_contraseña[0]):
+                        print("¡El usuario '{}' ya está registrado! Por favor, elija otro nombre.".format(usuario_contraseña[0]))
+                    else:
+                        # Envío el usuario y contraseña para crear el usuario
+                        usuario_creado = m_manejo_usuario.crear_usuario(usuario_contraseña[0], usuario_contraseña[1])
 
                 # Se piden los datos de usuario y contraseña nuevamente
                 usuario_contraseña = m_manejo_usuario.pedir_datos_login()
@@ -42,6 +48,7 @@ def login():
             else:
                 print("GRACIAS POR USAR NUESTRA APP")
                 exit()
+
 
 
 # datos_login[1] es el usuario
