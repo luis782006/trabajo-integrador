@@ -30,9 +30,9 @@ def Elegir_comida(lista):
 
             comida['id']=id
             #voy haciendo el calculo del precio de la comida con la cantidad
-            cant_comida*=comida['precio']
-            #Le paso la cantidad que pidio el usuario para mostrarlo en el ticket. AGREGANDO UNA NUEVA CLAVE
             comida['cantidad']=cant_comida
+            comida['precio_total']=comida['precio']*cant_comida
+            #Le paso la cantidad que pidio el usuario para mostrarlo en el ticket. AGREGANDO UNA NUEVA CLAVE
             lista_carrito.append(comida)
 
     #obtengo lista del carrito para insertar los nuevos datos
@@ -51,29 +51,64 @@ def Elegir_comida(lista):
 def Consultar_carrito(lista):
    
     if len(lista['lista_carrito'])!=0:
-        print("*-------CARRITO---------*")
+        print("*-------------------CARRITO------------------*")
         for comida_en_carito in lista['lista_carrito']:
-            print("ID:", comida_en_carito['id'])
-            print("DESCRIPCION:", comida_en_carito['descripcion'])
-            print("*------------------*")
+            print("     ID:", comida_en_carito['id'])
+            print("     DESCRIPCION:", comida_en_carito['descripcion'])
+            print("     CANTIDAD DEL PRODUCTO SELECCIONADO:", comida_en_carito['cantidad'])
+            print("*--------------------------------------------*")
             
     else:
-        print("NO TIENE NADA EN EL CARRITO")        
+        print("     NO TIENE NADA EN EL CARRITO")        
 
-    print("IVA Resp-INSCRIPTO")
-    print("CUIT:", "20-12345678-9")
-    print("A CONSUMIDOR FINAL")
+    print("     IVA Resp-INSCRIPTO")
+    print("     CUIT:", "20-12345678-9")
+    print("     A CONSUMIDOR FINAL")
     total=0
+    #Obtengo la fecha actual y le doy un formato pa mostrar al final
+    fecha_actual = datetime.datetime.now()
+    fecha_format = fecha_actual.strftime("%d-%m-%Y")
+    hora_format = fecha_actual.strftime("%H:%M")
+
     #Recorro y sumo los valores
     lista_carrito_total=Obtener_Lista_Carrito()
     for comida_carrito in lista_carrito_total['lista_carrito']:
-        total+=comida_carrito['precio']
-    print("TOTAL A PAGAR:", total)
-    print("FECHA:", datetime.datetime.now())
-    print("*************************")
+        total+=comida_carrito['precio_total']
+    print("     TOTAL A PAGAR:", total)
+    print("     FECHA:", fecha_format, "HORA:", hora_format)
+    print("**************************************")
     lista_carrito_total['total_carrito']=total
- 
-    
+    print("**************************************")
+
+    #Si la lista esta vacia no pido la direccion
+    if len(lista_carrito_total['lista_carrito'])!=0:
+        if lista_carrito_total['direccion']=="":
+            opcion_envio=input("Ingrese Tipo de entrega (Local( L ) / Domicilio ( D )) y continue su compra:").upper()
+            if opcion_envio=="D" :
+                direccion=input("Ingrese la direccion de envio: ")
+                #cargo la lista de carrito
+                lista=Obtener_Lista_Carrito()
+                #le paso el valor de la direccion
+                lista['direccion']=direccion
+                almacenar_direccion(lista)
+            else: 
+                direccion="LOCAL"
+                #cargo la lista de carrito
+                lista=Obtener_Lista_Carrito()
+                #le paso el valor de la direccion
+                lista['direccion']=direccion
+                almacenar_direccion(lista)            
+            return direccion
+      
+
+def almacenar_direccion(lista):
+    try:
+       with open("carrito.json",'w',encoding="utf-8") as dataCarrito:
+                json.dump(lista, dataCarrito)
+                print("DIRECCION CARGADA")
+    except Exception as e:
+            print("Error no se realizo la accion" , str(e))
+
 def vaciar_carrito():
     try:
         with open("carrito.json", 'r', encoding="utf-8") as dataCarrito:
@@ -94,7 +129,7 @@ def vaciar_carrito():
 
 def menu_usuario(usuario):
     presentacion.limpiar_consola()
- 
+    direccion=""
     print(f"****BIENVENIDO {usuario} **********")
     opcion = -1  # Inicializamos diferente de cero
     while opcion != 0:
@@ -103,7 +138,7 @@ def menu_usuario(usuario):
         print("**************")
         print("1. Mostrar comidas rápidas")
         print("2. Elegir una comida rapida")
-        print("3. Consultar el carrito")
+        print("3. Consultar y Confirmar el carrito")
         print("4. Imprimir ticket")
         print("5. Limpiar Carrito compras")
         print("0. Salir")
@@ -122,14 +157,33 @@ def menu_usuario(usuario):
         elif opcion == 3:
             presentacion.limpiar_consola()
             lista=Obtener_Lista_Carrito()
-            Consultar_carrito(lista)
+            direccion=Consultar_carrito(lista)
         elif opcion == 4:
             presentacion.limpiar_consola() 
-            presentacion.Imprimir_carrito()
+            lista=Obtener_Lista_Carrito()
+            if len(lista['lista_carrito'])!=0:
+                if direccion=="":
+                    print("NO TIENE DIRECCION CARGADA, NO SE PUEDE IMPRIMIR EL TICKET")
+                    print("POR FAVOR CARGUE LA DIRECCION EN OPCION 3 CONSULTA DE CARRITO")
+                    print("*----------------------------------------------------------*")
+                else:
+                    if len(lista['lista_carrito'])!=0:
+                        respuesta=input("SI IMPRIME SU TICKET NO PODRA MODIFICAR EL CARRITO Y SE VACIARA AUTOMATICAMENTE (S/N):").upper()
+                        if respuesta=="S":
+                            presentacion.Imprimir_carrito(direccion)
+                            vaciar_carrito()
+                            direccion=""
+            else:
+                print("CARRITO VACIO")
         elif opcion == 5:
             lista=Obtener_Lista_Carrito()
             presentacion.limpiar_consola()
             vaciar_carrito()
+        elif opcion == 0:
+            presentacion.limpiar_consola()
+            presentacion.Presentacion()
+            print("                     GRACIAS POR USAR NUESTRO SERVICIO")
+
        
                 
     

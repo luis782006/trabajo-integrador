@@ -19,11 +19,24 @@ def continuar_presentacion():
     else:
         return False    
 
-def Imprimir_carrito():
+def Imprimir_carrito(direccion):
     archivo=open("impresora.txt","r",encoding="utf-8")
     contenido=archivo.read()
     print(contenido)
     archivo.close()
+    print("****************************************")
+    print("TICKET IMPRESO")
+    print("****************************************")
+    if direccion=="LOCAL":
+        print("Esperamos por su retirto ")
+        print("GRACIAS POR USAR NUESTRO SERVICIO")
+        print("*****************************************")
+    else:
+        print("Su pedido será enviado a la dirección: ",direccion)
+        print("GRACIAS POR USAR NUESTRO SERVICIO")
+        print("*****************************************")
+
+ 
     
 
 def limpiar_consola():
