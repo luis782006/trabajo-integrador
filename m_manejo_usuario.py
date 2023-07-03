@@ -57,14 +57,14 @@ def crear_usuario(usuario,contraseña):
 
 #Verifica si el usuario y contraseña ingresados son correctos
 def control_usuario(usuario, contraseña):
-    usuarioValido = False
+    usuario_valido = False
     with open('user.json') as lista_usuario:
         lst_usuarios = json.load(lista_usuario)
     for usr in lst_usuarios:
         if usr["user"] == usuario and usr["password"] == contraseña:
-            usuarioValido = True
+            usuario_valido = True
             break
-    return usuarioValido
+    return usuario_valido
 
 def bienvenida(usuario):
     
