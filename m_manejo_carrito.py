@@ -83,6 +83,7 @@ def Consultar_carrito(lista):
     #Si la lista esta vacia no pido la direccion
     if len(lista_carrito_total['lista_carrito'])!=0:
         if lista_carrito_total['direccion']=="":
+            print("MIENTRAS PREPARAMOS SU ENVIO LE PEDIMOS NOS CONFIRME SU RETIRO")
             opcion_envio=input("Ingrese Tipo de entrega (Local( L ) / Domicilio ( D )) y continue su compra:").upper()
             if opcion_envio=="D" :
                 direccion=input("Ingrese la direccion de envio: ")
@@ -91,13 +92,16 @@ def Consultar_carrito(lista):
                 #le paso el valor de la direccion
                 lista['direccion']=direccion
                 almacenar_direccion(lista)
+                presentacion.limpiar_consola()    
             else: 
                 direccion="LOCAL"
                 #cargo la lista de carrito
                 lista=Obtener_Lista_Carrito()
                 #le paso el valor de la direccion
                 lista['direccion']=direccion
-                almacenar_direccion(lista)            
+                almacenar_direccion(lista)    
+                presentacion.limpiar_consola()   
+                print("RETIRO EN LOCAL")     
             return direccion
       
 
@@ -117,6 +121,7 @@ def vaciar_carrito():
         lista_carrito = lista['lista_carrito']
         lista_carrito.clear()
         lista['total_carrito'] = 0
+        lista['direccion']=""
 
         with open("carrito.json", 'w', encoding="utf-8") as dataCarrito:
             json.dump(lista, dataCarrito)
@@ -129,7 +134,6 @@ def vaciar_carrito():
 
 def menu_usuario(usuario):
     presentacion.limpiar_consola()
-    direccion=""
     print(f"****BIENVENIDO {usuario} **********")
     opcion = -1  # Inicializamos diferente de cero
     while opcion != 0:
@@ -162,7 +166,7 @@ def menu_usuario(usuario):
             presentacion.limpiar_consola() 
             lista=Obtener_Lista_Carrito()
             if len(lista['lista_carrito'])!=0:
-                if direccion=="":
+                if lista['direccion']=="":
                     print("NO TIENE DIRECCION CARGADA, NO SE PUEDE IMPRIMIR EL TICKET")
                     print("POR FAVOR CARGUE LA DIRECCION EN OPCION 3 CONSULTA DE CARRITO")
                     print("*----------------------------------------------------------*")
@@ -172,7 +176,7 @@ def menu_usuario(usuario):
                         if respuesta=="S":
                             presentacion.Imprimir_carrito(direccion)
                             vaciar_carrito()
-                            direccion=""
+                            
             else:
                 print("CARRITO VACIO")
         elif opcion == 5:
