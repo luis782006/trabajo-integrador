@@ -58,7 +58,7 @@ def login():
         # Verifico si usuario existe en el archivo user.json
         existe = m_manejo_usuario.usuario_existe(usuario_contraseña[0])
 
-        # Verifico sabiendo que ya esta registrado ese usuario, si el usuario y contraseña ingresados son correctos
+        # Verifico sabiendo que ya está registrado ese usuario si el usuario y contraseña ingresados son correctos
         if existe and m_manejo_usuario.control_usuario(usuario_contraseña[0], usuario_contraseña[1]):
             # Bienvenida al usuario
             m_manejo_usuario.bienvenida(usuario_contraseña[0])
@@ -70,7 +70,7 @@ def login():
             print("I - Ingresar nuevamente")
             print("S - Salir")
 
-            opcion = input("Presione 'R' para registrarse o cualquier tecla para salir: ").upper()
+            opcion = input().upper()
             if opcion == "R":
                 presentacion.limpiar_consola()
                 # Se piden los datos de usuario y contraseña nuevamente
@@ -87,20 +87,16 @@ def login():
                 # Se piden los datos de usuario y contraseña nuevamente para que ingrese con el usuario creado
                 return usuario_contraseña[0], usuario_contraseña[1]
             elif opcion == "I":
-                while True:
-                    presentacion.limpiar_consola()
-                    print("Ingrese nuevamente su usuario y contraseña")
-                    usuario_contraseña = m_manejo_usuario.pedir_datos_login()
-                    existe = m_manejo_usuario.usuario_existe(usuario_contraseña[0])
-                    if existe and m_manejo_usuario.control_usuario(usuario_contraseña[0], usuario_contraseña[1]):
-                        m_manejo_usuario.bienvenida(usuario_contraseña[0])
-                        return usuario_contraseña[0], usuario_contraseña[1]
-                    else:
-                        print("El usuario y/o contraseña son incorrectos.")
+                presentacion.limpiar_consola()
+                # Vuelve al inicio del bucle y solicita los datos de inicio de sesión nuevamente porque de nuevo se equivoco
+                continue  
             else:
                 presentacion.Presentacion()
                 print("              GRACIAS POR USAR NUESTRA APP")
                 exit()
+
+    #return False
+
 
 # datos_login[1] es el usuario
 # datos_login[2] es la contraseña
