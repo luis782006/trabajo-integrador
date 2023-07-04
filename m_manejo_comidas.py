@@ -120,7 +120,7 @@ def buscar_por_calorias(lista,calorias_max,calorias_min):
 def buscar_veganas(lista):
     lista_comida_filtrada=[]
     for comida in lista:
-        if comida['vegana'] == "true":
+        if comida['vegana'] == "True":
             lista_comida_filtrada.append(comida)
 
     if not lista_comida_filtrada:
