@@ -294,7 +294,8 @@ def menu_admin():
             lista=Obtener_Lista_Comidas()
             Borrar(lista)
         
-    
-    print("Gracias por usar la app")
+    presentacion.limpiar_consola()
+    presentacion.presentacion()
+    print("                 Gracias por usar la app")
 
    
