@@ -238,22 +238,29 @@ def guardar_nueva_comida(lista,id,descripcion,ingredientes,tiempo,precio,caloria
         print("Error al actualizar la lista de comida" , str(e))
     return True
     
+import json
+
 def Borrar(lista):
-    id=int(input("Ingrese por ID la comida para eliminar: "))
+    comida_borrada = False
+    id = int(input("Ingrese por ID la comida para eliminar: "))
+    
     for comida in lista:
-        if comida['id']==id:
+        if comida['id'] == id:
             lista.remove(comida)
+            comida_borrada = True
             break
-        else:
-            print("No existe comida con el Id ingresado")
-    try:    
-        # Actualizo el archivo comidas_rapidas.json guardando los cambios de la comida seleccionada
+        
+    if not comida_borrada:
+        print("No existe comida con el ID ingresado")
+    try:
         with open("comidas_rapidas.json", "w", encoding="utf-8") as dataComidas:
             json.dump(lista, dataComidas)
-        print("Se elimino la comida con exito")
+        print("Se eliminó la comida con éxito")
     except Exception as e:
-        print("Error al borar la comida seleccinada" , str(e))
+        print("Error al borrar la comida seleccionada:", str(e))
+    
     return True
+
 
 def menu_admin():
     presentacion.limpiar_consola()
