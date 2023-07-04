@@ -54,8 +54,9 @@ def Consultar_carrito(lista):
         print("*-------------------CARRITO------------------*")
         for comida_en_carito in lista['lista_carrito']:
             print("     ID:", comida_en_carito['id'])
-            print("     DESCRIPCION:", comida_en_carito['descripcion'])
-            print("     CANTIDAD DEL PRODUCTO SELECCIONADO:", comida_en_carito['cantidad'])
+            print("     DESCRIPCION: ", comida_en_carito['descripcion'])
+            print("     CANTIDAD DEL PRODUCTO SELECCIONADO: ", comida_en_carito['cantidad'])
+            print("     TOTAL POR PRODUCTO: ", comida_en_carito['precio_total'])
             print("*--------------------------------------------*")
             
     else:
@@ -87,12 +88,12 @@ def Consultar_carrito(lista):
             opcion_envio=input("Ingrese Tipo de entrega (Local( L ) / Domicilio ( D )) y continue su compra:").upper()
             if opcion_envio=="D" :
                 direccion=input("Ingrese la direccion de envio: ")
+                presentacion.limpiar_consola()    
                 #cargo la lista de carrito
                 lista=Obtener_Lista_Carrito()
                 #le paso el valor de la direccion
                 lista['direccion']=direccion
                 almacenar_direccion(lista)
-                presentacion.limpiar_consola()    
             else: 
                 direccion="LOCAL"
                 #cargo la lista de carrito
@@ -165,6 +166,8 @@ def menu_usuario(usuario):
         elif opcion == 4:
             presentacion.limpiar_consola() 
             lista=Obtener_Lista_Carrito()
+            direccion=lista['direccion']
+
             if len(lista['lista_carrito'])!=0:
                 if lista['direccion']=="":
                     print("NO TIENE DIRECCION CARGADA, NO SE PUEDE IMPRIMIR EL TICKET")
@@ -174,6 +177,7 @@ def menu_usuario(usuario):
                     if len(lista['lista_carrito'])!=0:
                         respuesta=input("SI IMPRIME SU TICKET NO PODRA MODIFICAR EL CARRITO Y SE VACIARA AUTOMATICAMENTE (S/N):").upper()
                         if respuesta=="S":
+                            presentacion.limpiar_consola()                            
                             presentacion.Imprimir_carrito(direccion)
                             vaciar_carrito()
                         else:

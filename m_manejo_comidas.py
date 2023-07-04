@@ -43,16 +43,20 @@ def Buscar_Comida(lista):
 
     if opcion == "1":
         ingrediente = input("Ingrese el ingrediente a buscar: ")
+        presentacion.limpiar_consola()
         Buscar_por_Ingredientes(lista, ingrediente)        
     elif opcion == "2":
         precio_max = float(input("Ingrese un rango de precio (Max): "))
         precio_min= float(input("Ingrese un rango de precio (Min): "))
+        presentacion.limpiar_consola()
         buscar_por_precio(lista, precio_max,precio_min)
     elif opcion == "3":
         calorias_max = int(input("Ingrese las calorías máximas: "))
         calorias_min = int(input("Ingrese las calorías min: "))
+        presentacion.limpiar_consola()
         buscar_por_calorias(lista,calorias_max,calorias_min)
     elif opcion=="4":
+        presentacion.limpiar_consola()
         buscar_veganas(lista)
 
 def Buscar_por_Ingredientes(lista, ingrediente):
@@ -62,12 +66,15 @@ def Buscar_por_Ingredientes(lista, ingrediente):
         ingredientes = comida['ingredientes']
         if ingrediente in ingredientes:
             lista_comida_filtrada.append(comida)
-    print("*------LISTA DE COMIDAS ENCONTRADAS-------*")
+    
+    presentacion.limpiar_consola()
+    cant=len(lista_comida_filtrada)
+    print("*------LISTA DE COMIDAS ENCONTRADAS CANT: " ,cant,"--------*")
     if lista_comida_filtrada:
         for comida in lista_comida_filtrada:
             print("ID:", comida['id'])
             print("Descripción:", comida['descripcion'])
-            print("Ingredientes:", comida['ingredientes'])
+            print("Ingredientes:", "-".join(comida['ingredientes']))
             print("Tiempo:", comida['tiempo'])
             print("Precio:", comida['precio'])
             print("Calorías:", comida['calorias'])
@@ -295,7 +302,7 @@ def menu_admin():
             Borrar(lista)
         
     presentacion.limpiar_consola()
-    presentacion.presentacion()
+    presentacion.Presentacion()
     print("                 Gracias por usar la app")
 
    
