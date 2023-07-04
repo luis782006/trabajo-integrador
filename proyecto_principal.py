@@ -23,9 +23,6 @@ def login():
             print("R - Registrarse")
             print("I - Ingresar nuevamente")
             print("S - Salir")
-
-
-            opcion = input("Presione 'R' para registrarse o 'S' para salir: ").upper()
             opcion = input().upper()
             if opcion == "R":
                 presentacion.limpiar_consola()
